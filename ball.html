@@ -11,7 +11,7 @@
 		var smallCircDist = 100;
         
         function regen() {
-            var can = document.getElementById("can");
+            var can = document.getElementById("canvas");
             var ctx = can.getContext("2d");
             ctx.clearRect(0, 0, can.width - 1 , can.height - 1);
 			
@@ -49,6 +49,7 @@
 							ctx.lineTo(lastpoint.x, lastpoint.y);
 							ctx.stroke();
                         }
+
                     }
                 }
             }
@@ -56,12 +57,12 @@
     </script>
 </head>
 <body onLoad="regen()" style="background-color:#FFFFFF">
-    <img id="ball1" src="ball1.png" draggable="true" style="display:none" />
-    <img id="ball2" src="ball2.png" draggable="true" style="display:none" />
-    <img id="ball3" src="ball3.png" draggable="true" style="display:none" />
-    <img id="ball4" src="ball4.png" draggable="true" style="display:none" />
-    <img id="ball5" src="ball5.png" draggable="true" style="display:none" />
-    <canvas id="can" height="600" width="800">
+    <img id="ball1" src="ball1.png" style="display:none" />
+    <img id="ball2" src="ball2.png" style="display:none" />
+    <img id="ball3" src="ball3.png" style="display:none" />
+    <img id="ball4" src="ball4.png" style="display:none" />
+    <img id="ball5" src="ball5.png" style="display:none" />
+    <canvas id="canvas" height="600" width="800">
     </canvas>
 </body>
 </html>
