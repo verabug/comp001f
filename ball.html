@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>comp001f - Jared Tarbell</title>
+    <script type="text/javascript">
+        var lastpoint = new Object();
+        var jlim = 5;
+        var klim = 5;
+        var totalframes = 5;
+		var circOriginX = 32;
+		var circOriginY = 32;
+		var smallCircDist = 100;
+        
+        function regen() {
+            var can = document.getElementById("can");
+            var ctx = can.getContext("2d");
+            ctx.clearRect(0, 0, can.width - 1 , can.height - 1);
+			
+            for (j=0; j<jlim; j++) {
+                for (var k=0; k<klim; k++) {
+					
+					var x = j*620/jlim + 210/jlim;
+					var y = k*420/klim + 210/klim;
+					
+                    for (var l=0; l<(j+k+2)/2; l++) {
+                        var ballNum = Math.floor(Math.random() * totalframes + 1);
+                        var ball = document.getElementById("ball" + ballNum);
+                        var scale = (15 + 8 * (j + k) * Math.random())/100;
+                        var rot = Math.random() * 360;
+						var rotRad = rot * Math.PI / 180;
+
+                        ctx.save();
+						ctx.translate(x, y);
+                        ctx.rotate(rotRad);
+						ctx.translate(-scale*circOriginX, -scale*circOriginY);
+                        ctx.drawImage(ball, 0, 0, scale*ball.width, scale*ball.height);
+                        ctx.restore();
+
+                        if (k>0 || l>0) {
+							ctx.beginPath();
+                            ctx.strokeStyle = "gray";
+                            ctx.lineWidth=0.4;
+                            ctx.moveTo(lastpoint.x, lastpoint.y);
+                        }
+						
+                        lastpoint.x = x + scale * smallCircDist * Math.cos(rotRad);
+                        lastpoint.y = y + scale * smallCircDist * Math.sin(rotRad);
+						
+                        if(k>0 || l>0) {
+							ctx.lineTo(lastpoint.x, lastpoint.y);
+							ctx.stroke();
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body onLoad="regen()" style="background-color:#FFFFFF">
+    <img id="ball1" src="ball1.png" draggable="true" style="display:none" />
+    <img id="ball2" src="ball2.png" draggable="true" style="display:none" />
+    <img id="ball3" src="ball3.png" draggable="true" style="display:none" />
+    <img id="ball4" src="ball4.png" draggable="true" style="display:none" />
+    <img id="ball5" src="ball5.png" draggable="true" style="display:none" />
+    <canvas id="can" height="600" width="800">
+    </canvas>
+</body>
+</html>
